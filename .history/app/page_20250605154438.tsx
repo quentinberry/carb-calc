@@ -3,6 +3,7 @@ import CarbCalculatorPage from "./carbCalculator/page";
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      container mx-auto px-4 max-w-4xl
       <main className="flex flex-col gap-[32px] row-start-2 items-start sm:items-start">
         <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
           Welcome to Carb-calc
@@ -19,7 +20,7 @@ export default function Home() {
           Energy gels are convenient but costly; consider making your own for a budget-friendly option.
         </p>
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-          Let&apos;s calculate your carbohydrate needs!
+          Let's calculate your carbohydrate needs!
         </h2>
         <CarbCalculatorPage />
       </main>
