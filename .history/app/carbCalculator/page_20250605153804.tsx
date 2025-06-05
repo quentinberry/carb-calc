@@ -57,62 +57,56 @@ export default function CarbCalculatorPage() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           {/* Weight & Intensity */}
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="w-full">
-              <FormField
-                control={form.control}
-                name="weight"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Weight (Kg)</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="70"
-                        className="w-full"
-                        value={field.value ?? ""}
-                        onChange={(e) =>
-                          field.onChange(
-                            e.target.value === "" ? null : Number(e.target.value)
-                          )
-                        }
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              control={form.control}
+              name="weight"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Weight (Kg)</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="w-full"
+                      type="number"
+                      placeholder="70"
+                      value={field.value ?? ""}
+                      onChange={(e) =>
+                        field.onChange(e.target.value === "" ? null : Number(e.target.value))
+                      }
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
   
-            <div className="w-full">
-              <FormField
-                control={form.control}
-                name="workoutIntensity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Workout Intensity</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={(value) =>
-                          field.onChange(value === "" ? null : Number(value))
-                        }
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select an intensity" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Intensity Levels</SelectLabel>
-                            <SelectItem value="0.7">Easy</SelectItem>
-                            <SelectItem value="0.8">Moderate</SelectItem>
-                            <SelectItem value="0.9">Hard</SelectItem>
-                            <SelectItem value="1.0">Really Hard</SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              control={form.control}
+              name="workoutIntensity"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Workout Intensity</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={(value) =>
+                        field.onChange(value === "" ? null : Number(value))
+                      }
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select an intensity" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Intensity Levels</SelectLabel>
+                          <SelectItem value="0.7">Easy</SelectItem>
+                          <SelectItem value="0.8">Moderate</SelectItem>
+                          <SelectItem value="0.9">Hard</SelectItem>
+                          <SelectItem value="1.0">Really Hard</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </div>
   
           {/* Duration */}
@@ -129,9 +123,7 @@ export default function CarbCalculatorPage() {
                       placeholder="0"
                       value={field.value ?? ""}
                       onChange={(e) =>
-                        field.onChange(
-                          e.target.value === "" ? null : Number(e.target.value)
-                        )
+                        field.onChange(e.target.value === "" ? null : Number(e.target.value))
                       }
                       min={0}
                       className="w-full"
@@ -153,9 +145,7 @@ export default function CarbCalculatorPage() {
                       placeholder="0"
                       value={field.value ?? ""}
                       onChange={(e) =>
-                        field.onChange(
-                          e.target.value === "" ? null : Number(e.target.value)
-                        )
+                        field.onChange(e.target.value === "" ? null : Number(e.target.value))
                       }
                       min={0}
                       max={59}
@@ -200,5 +190,4 @@ export default function CarbCalculatorPage() {
       )}
     </div>
   );
-  
 }
