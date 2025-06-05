@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 import { DosageResponse } from "@/lib/types";
 import { calculateCarbs, carbDosageToTime } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";

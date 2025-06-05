@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 import { DosageResponse } from "@/lib/types";
 import { calculateCarbs, carbDosageToTime } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -55,7 +57,7 @@ export default function CarbCalculatorPage() {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="flex flex-row gap-x-4 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
               name="weight"
@@ -107,6 +109,17 @@ export default function CarbCalculatorPage() {
                       </SelectGroup>
                     </SelectContent>
                     </Select>
+                  </div>
+                  </FormControl>
+                </FormItem>
+                      {/* <Slider
+                        value={[field.value]}
+                        min={0.7}
+                        max={0.9}
+                        step={0.1}
+                        onValueChange={(value) => field.onChange(value[0])}
+                        className="w-full"
+                      /> */}
                     </div>
                   </FormControl>
                 </FormItem>
@@ -178,7 +191,7 @@ export default function CarbCalculatorPage() {
             You should consume <strong>~{carbs}g</strong> of total carbohydrates for your workout.
           </p>
           <br />
-          <p>This means you should consume in:</p>
+          <p>This means you should take in:</p>
           <ul className="list-disc pl-6 mt-2">
             {decimalTime && (
               <>

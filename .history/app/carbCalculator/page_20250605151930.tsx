@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 import { DosageResponse } from "@/lib/types";
 import { calculateCarbs, carbDosageToTime } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -48,91 +49,90 @@ export default function CarbCalculatorPage() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const calculatedCarbs = calculateCarbs(values);
     setCarbs(calculatedCarbs);
+
     setDecimalTime(carbDosageToTime(values));
   }
 
   return (
-    <>
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">Carb Calculator</h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="flex flex-row gap-x-4 w-full">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
               name="weight"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Weight (Kg)</FormLabel>
+                  <FormLabel className="font-medium">Weight</FormLabel>
                   <FormControl>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center space-x-2">
                       <Input
                         className="w-full"
                         type="number"
                         placeholder="70"
                         value={field.value ?? ""}
-                        onChange={(e) =>
-                          field.onChange(
-                            e.target.value === "" ? null : Number(e.target.value)
-                          )
-                        }
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(value === "" ? null : Number(value));
+                        }}
                       />
+                      <span>Kg</span>
                     </div>
                   </FormControl>
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="workoutIntensity"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Workout Intensity</FormLabel>
+                <FormItem>
+                  <FormLabel className="font-medium">Workout Intensity</FormLabel>
                   <FormControl>
-                  <div className="flex flex-col gap-2">
-                    <Select
-                    onValueChange={(value) =>
-                      field.onChange(value === "" ? null : Number(value))
-                    }
-                    >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select an intensity" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                      <SelectLabel>Intensity Levels</SelectLabel>
-                      <SelectItem value="0.7">Easy</SelectItem>
-                      <SelectItem value="0.8">Moderate</SelectItem>
-                      <SelectItem value="0.9">Hard</SelectItem>
-                      <SelectItem value="1.0">Really Hard</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                    </Select>
-                    </div>
+                    <Slider
+                      defaultValue={[0.7]}
+                      min={0.7}
+                      max={0.9}
+                      step={0.1}
+                      onValueChange={(value) => field.onChange(value[0])}
+                    />
                   </FormControl>
+                  <FormDescription className="text-sm">
+                    Selected Intensity:{" "}
+                    {(() => {
+                      const intensityMap = {
+                        0.7:
+                    0.9: "Hard",
+                  };
+                  return (
+                    intensityMap[
+                    field.value as unknown as keyof typeof intensityMap
+                    ] || "easy"
+                  );
+                  })()}
+                </FormDescription>
                 </FormItem>
               )}
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-6">
+              />
+            </div>
+          <div className="flex space-x-4">
             <FormField
               control={form.control}
               name="workoutDuration.hours"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Duration (Hours)</FormLabel>
+                  <FormLabel>Workout Duration (Hours)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="0"
+                      placeholder="hours"
                       value={field.value ?? ""}
-                      onChange={(e) =>
-                        field.onChange(
-                          e.target.value === "" ? null : Number(e.target.value)
-                        )
-                      }
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        field.onChange(value === "" ? null : Number(value));
+                      }}
                       min={0}
-                      className="w-full"
                     />
                   </FormControl>
                 </FormItem>
@@ -143,57 +143,62 @@ export default function CarbCalculatorPage() {
               name="workoutDuration.minutes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Duration (Minutes)</FormLabel>
+                  <FormLabel>Workout Duration (Minutes)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="0"
-                      value={field.value ?? ""}
-                      onChange={(e) =>
-                        field.onChange(
-                          e.target.value === "" ? null : Number(e.target.value)
-                        )
+                      placeholder="minutes"
+                      value={
+                        field.value !== undefined && field.value !== null
+                          ? field.value
+                          : ""
                       }
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        field.onChange(value === "" ? null : Number(value));
+                      }}
                       min={0}
-                      max={59}
-                      className="w-full"
                     />
                   </FormControl>
                 </FormItem>
               )}
             />
           </div>
-
           <Button type="submit">Calculate</Button>
         </form>
       </Form>
-
-      <h2 className="mt-10 text-3xl font-semibold border-b pb-2">
+      <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Results
       </h2>
-
       {carbs !== null ? (
-        <div className="mt-6 leading-7">
-          <p>
-            You should consume <strong>~{carbs}g</strong> of total carbohydrates for your workout.
-          </p>
-          <br />
-          <p>This means you should consume in:</p>
-          <ul className="list-disc pl-6 mt-2">
+        <>
+        <p className="leading-7 [&:not(:first-child)]:mt-6">
+          You should consume {carbs !== null ? `~${carbs}g` : "..."} of total carbohydrates for your workout.
+          <br /><br />
+          This means you should take in: <br />
+          <ul className="list-disc pl-6">
             {decimalTime && (
               <>
-                <li>~{decimalTime["20m"]}g every 20 minutes</li>
-                <li>~{decimalTime["30m"]}g every 30 minutes</li>
-                <li>~{decimalTime["60m"]}g every 60 minutes</li>
+                <li>
+                ~{decimalTime["20m"]}g of carbohydrates every 20 minutes
+                </li>
+                <li>
+                ~{decimalTime["30m"]}g of carbohydrates every 30 minutes
+                </li>
+                <li>
+                ~{decimalTime["60m"]}g of carbohydrates every 60 minutes
+                </li>
               </>
             )}
           </ul>
-        </div>
-      ) : (
-        <p className="mt-6 leading-7">
+        </p>
+        </>
+      ) : ((
+        <p className="leading-7 [&:not(:first-child)]:mt-6">
           Enter your info and press the button to calculate the amount of carbohydrates you need.
         </p>
-      )}
+
+      ))}
     </>
   );
 }
