@@ -168,36 +168,37 @@ export default function CarbCalculatorPage() {
           </div>
   
           <Button type="submit" className="w-full md:w-auto">
-            Berechnen
+            Calculate
           </Button>
         </form>
       </Form>
   
-      {/* Ergebnisse */}
-      <h2 className="mt-12 text-3xl font-semibold border-b pb-2">Ergebnisse</h2>
+      {/* Results */}
+      <h2 className="mt-12 text-3xl font-semibold border-b pb-2">Results</h2>
   
       {carbs !== null ? (
         <div className="mt-6 leading-7 text-lg">
           <p>
-            Du solltest ungefähr <strong>~{carbs}g</strong> Kohlenhydrate für dein Training zu dir nehmen.
+            You should consume <strong>~{carbs}g</strong> of total carbohydrates for your workout.
           </p>
           <br />
-          <p>Das bedeutet, du solltest folgendes konsumieren:</p>
+          <p>This means you should consume in:</p>
           <ul className="list-disc pl-6 mt-2">
             {decimalTime && (
               <>
-                <li>~{decimalTime["20m"]}g alle 20 Minuten</li>
-                <li>~{decimalTime["30m"]}g alle 30 Minuten</li>
-                <li>~{decimalTime["60m"]}g alle 60 Minuten</li>
+                <li>~{decimalTime["20m"]}g every 20 minutes</li>
+                <li>~{decimalTime["30m"]}g every 30 minutes</li>
+                <li>~{decimalTime["60m"]}g every 60 minutes</li>
               </>
             )}
           </ul>
         </div>
       ) : (
         <p className="mt-6 leading-7 text-lg">
-          Gib deine Daten ein und drück den Button, um die Menge an Kohlenhydraten zu berechnen, die du brauchst.
+          Enter your info and press the button to calculate the amount of carbohydrates you need.
         </p>
       )}
     </div>
   );
+  
 }

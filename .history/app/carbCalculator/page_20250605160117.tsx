@@ -19,17 +19,17 @@ import { z } from "zod";
 
 const formSchema = z.object({
   weight: z.number().min(1, {
-    message: "Gewicht darf nicht leer sein",
+    message: "Weight must not be empty",
   }),
   workoutIntensity: z.number().min(0.7).max(1, {
-    message: "Trainingsintensität muss zwischen 0.7 und 1 liegen",
+    message: "Workout intensity must be between 0.7 and 1",
   }),
   workoutDuration: z.object({
     hours: z.number().min(0, {
-      message: "Stunden dürfen nicht negativ sein",
+      message: "Hours must not be negative",
     }),
     minutes: z.number().min(0).max(59, {
-      message: "Minuten müssen zwischen 0 und 59 liegen",
+      message: "Minutes must be between 0 and 59",
     }),
   }),
 });
@@ -55,7 +55,7 @@ export default function CarbCalculatorPage() {
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {/* Gewicht & Intensität */}
+          {/* Weight & Intensity */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full">
               <FormField
@@ -63,7 +63,7 @@ export default function CarbCalculatorPage() {
                 name="weight"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Gewicht (Kg)</FormLabel>
+                    <FormLabel>Weight (Kg)</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -88,7 +88,7 @@ export default function CarbCalculatorPage() {
                 name="workoutIntensity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Trainingsintensität</FormLabel>
+                    <FormLabel>Workout Intensity</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={(value) =>
@@ -96,15 +96,15 @@ export default function CarbCalculatorPage() {
                         }
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Wähle eine Intensität" />
+                          <SelectValue placeholder="Select an intensity" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectLabel>Intensitätsstufen</SelectLabel>
-                            <SelectItem value="0.7">Leicht</SelectItem>
-                            <SelectItem value="0.8">Mittel</SelectItem>
-                            <SelectItem value="0.9">Schwer</SelectItem>
-                            <SelectItem value="1.0">Sehr schwer</SelectItem>
+                            <SelectLabel>Intensity Levels</SelectLabel>
+                            <SelectItem value="0.7">Easy</SelectItem>
+                            <SelectItem value="0.8">Moderate</SelectItem>
+                            <SelectItem value="0.9">Hard</SelectItem>
+                            <SelectItem value="1.0">Really Hard</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -115,14 +115,14 @@ export default function CarbCalculatorPage() {
             </div>
           </div>
   
-          {/* Dauer */}
+          {/* Duration */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
               name="workoutDuration.hours"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Dauer (Stunden)</FormLabel>
+                  <FormLabel>Duration (Hours)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -146,7 +146,7 @@ export default function CarbCalculatorPage() {
               name="workoutDuration.minutes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Dauer (Minuten)</FormLabel>
+                  <FormLabel>Duration (Minutes)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -168,36 +168,37 @@ export default function CarbCalculatorPage() {
           </div>
   
           <Button type="submit" className="w-full md:w-auto">
-            Berechnen
+            Calculate
           </Button>
         </form>
       </Form>
   
-      {/* Ergebnisse */}
-      <h2 className="mt-12 text-3xl font-semibold border-b pb-2">Ergebnisse</h2>
+      {/* Results */}
+      <h2 className="mt-12 text-3xl font-semibold border-b pb-2">Results</h2>
   
       {carbs !== null ? (
         <div className="mt-6 leading-7 text-lg">
           <p>
-            Du solltest ungefähr <strong>~{carbs}g</strong> Kohlenhydrate für dein Training zu dir nehmen.
+            You should consume <strong>~{carbs}g</strong> of total carbohydrates for your workout.
           </p>
           <br />
-          <p>Das bedeutet, du solltest folgendes konsumieren:</p>
+          <p>This means you should consume in:</p>
           <ul className="list-disc pl-6 mt-2">
             {decimalTime && (
               <>
-                <li>~{decimalTime["20m"]}g alle 20 Minuten</li>
-                <li>~{decimalTime["30m"]}g alle 30 Minuten</li>
-                <li>~{decimalTime["60m"]}g alle 60 Minuten</li>
+                <li>~{decimalTime["20m"]}g every 20 minutes</li>
+                <li>~{decimalTime["30m"]}g every 30 minutes</li>
+                <li>~{decimalTime["60m"]}g every 60 minutes</li>
               </>
             )}
           </ul>
         </div>
       ) : (
         <p className="mt-6 leading-7 text-lg">
-          Gib deine Daten ein und drück den Button, um die Menge an Kohlenhydraten zu berechnen, die du brauchst.
+          Enter your info and press the button to calculate the amount of carbohydrates you need.
         </p>
       )}
     </div>
   );
+  
 }
