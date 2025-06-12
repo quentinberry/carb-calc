@@ -1,4 +1,8 @@
-export default function RecipesCalculator({ wantedGram }: { wantedGram: number }) {
+type RecipesCalculatorProps = {
+  wantedGram: number;
+};
+
+export default function RecipesCalculator({ wantedGram }: RecipesCalculatorProps) {
   const baseRecipe = {
     maltoDextrin: 55,
     fructose: 45,
