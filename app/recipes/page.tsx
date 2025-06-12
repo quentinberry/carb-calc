@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import RecipesCalculator from "./recipeCalculator/page";
+import RecipesCalculator from "../../components/recipeCalulator";
 
 export default function RecipesPage() {
   const [gramValue, setGramValue] = useState<number>(100);
