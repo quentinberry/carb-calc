@@ -13,6 +13,10 @@
 # testing
 /coverage
 
+# Vscde
+.vscode/
+.history/
+
 # next.js
 /.next/
 /out/

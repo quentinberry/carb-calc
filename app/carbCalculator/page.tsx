@@ -175,14 +175,14 @@ export default function CarbCalculatorPage() {
   
       {/* Ergebnisse */}
       <h2 className="mt-12 text-3xl font-semibold border-b pb-2">Ergebnisse</h2>
-  
+
       {carbs !== null ? (
         <div className="mt-6 leading-7 text-lg">
-          <p>
+          <p className="leading-7 [&:not(:first-child)]:mt-6">
             Du solltest ungefähr <strong>~{carbs}g</strong> Kohlenhydrate für dein Training zu dir nehmen.
           </p>
           <br />
-          <p>Das bedeutet, du solltest folgendes konsumieren:</p>
+          <p className="leading-7 [&:not(:first-child)]:mt-6">Das bedeutet, du solltest folgendes konsumieren:</p>
           <ul className="list-disc pl-6 mt-2">
             {decimalTime && (
               <>
@@ -194,7 +194,7 @@ export default function CarbCalculatorPage() {
           </ul>
         </div>
       ) : (
-        <p className="mt-6 leading-7 text-lg">
+        <p className="leading-7 [&:not(:first-child)]:mt-6">
           Gib deine Daten ein und drück den Button, um die Menge an Kohlenhydraten zu berechnen, die du brauchst.
         </p>
       )}

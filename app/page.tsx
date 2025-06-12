@@ -1,8 +1,17 @@
+import Link from "next/link";
 import CarbCalculatorPage from "./carbCalculator/page";
 
 export default function Home() {
   return (
     <div className="container mx-auto px-4 max-w-4xl mt-18 mb-18">
+      <span className="flex justify-center mb-8">
+        <Link href="/" className="text-blue-500 hover:underline">
+          Carb Calculator
+        </Link>
+        <Link href="/recipes" className="ml-4 text-blue-500 hover:underline">
+          Rezepte
+        </Link>
+      </span>
       <main className="space-y-8">
       <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
         Willkommen bei Carb-calc
