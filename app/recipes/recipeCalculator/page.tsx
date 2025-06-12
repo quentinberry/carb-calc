@@ -1,6 +1,4 @@
-type RecipesCalculatorProps = {
-  wantedGram: number;
-};
+import { RecipesCalculatorProps } from "@/lib/types"
 
 export default function RecipesCalculator({ wantedGram }: RecipesCalculatorProps) {
   const baseRecipe = {

@@ -12,3 +12,7 @@ export type DosageResponse = {
   "30m": number;
   "60m": number;
 }
+
+export type RecipesCalculatorProps = {
+  wantedGram: number;
+}
